@@ -8,7 +8,7 @@
 
 
 **代码用法如下：**  效果图中的四种效果，对应代码四种写法
-```OC
+```Objective-C
     // 1.
     UIView *dashedView1 = [[UIView alloc] initWithFrame:CGRectMake(50, 50, 200, 100)];
     [self.view addSubview:dashedView1];
