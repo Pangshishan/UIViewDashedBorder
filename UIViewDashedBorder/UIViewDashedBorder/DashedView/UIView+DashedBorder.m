@@ -130,21 +130,42 @@ static char pss_layer_key;
     CGFloat y = (CGFloat)(height - diagonal) / 2;
     self.pss_angleLayer.frame = CGRectMake(x, y, (CGFloat)diagonal, (CGFloat)diagonal);
     
-    CGPoint point0 = CGPointMake(startX, 0);
-    CGPoint point1 = CGPointMake(self.bounds.size.width, 0);
-    CGPoint point2 = CGPointMake(self.bounds.size.width, self.bounds.size.height);
-    CGPoint point3 = CGPointMake(0, self.bounds.size.height);
-    CGPoint point4 = CGPointMake(0, 0);
-    
-    int pointCount = 5;
-    CGPoint moveToPoints[] = {point1, point2, point3, point4, point0};
-    
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:point0];
-    for (int i = 0; i < pointCount; i++) {
-        [path addLineToPoint:moveToPoints[i]];
+    CGFloat R = self.pss_config.cornerRidus;
+    // 半径的二倍 大于宽或者高时，要绘制直角；（无法绘制圆角）
+    BOOL bool1 = (R * 2 > self.bounds.size.width || R * 2 > self.bounds.size.height);
+    BOOL bool2 = (R <= 0); // 无圆角，绘制直角
+    if (bool1 || bool2) {
+        CGPoint point0 = CGPointMake(startX, 0);
+        CGPoint point1 = CGPointMake(self.bounds.size.width, 0);
+        CGPoint point2 = CGPointMake(self.bounds.size.width, self.bounds.size.height);
+        CGPoint point3 = CGPointMake(0, self.bounds.size.height);
+        CGPoint point4 = CGPointMake(0, 0);
+        
+        int pointCount = 5;
+        CGPoint moveToPoints[] = {point1, point2, point3, point4, point0};
+        
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        [path moveToPoint:point0];
+        for (int i = 0; i < pointCount; i++) {
+            [path addLineToPoint:moveToPoints[i]];
+        }
+        self.pss_shapeLayer.path = path.CGPath;
+    } else {
+        CGPoint point0 = CGPointMake(startX + R, 0);
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        [path moveToPoint:point0];
+        [path addLineToPoint:CGPointMake(self.bounds.size.width - R, 0)];
+        [path addArcWithCenter:CGPointMake(self.bounds.size.width - R, R) radius:R startAngle:-M_PI_2 endAngle:0 clockwise:YES];
+        [path addLineToPoint:CGPointMake(self.bounds.size.width, self.bounds.size.height - R)];
+        [path addArcWithCenter:CGPointMake(self.bounds.size.width - R, self.bounds.size.height - R) radius:R startAngle:0 endAngle:M_PI_2 clockwise:YES];
+        [path addLineToPoint:CGPointMake(R, self.bounds.size.height)];
+        [path addArcWithCenter:CGPointMake(R, self.bounds.size.height - R) radius:R startAngle:M_PI_2 endAngle:M_PI clockwise:YES];
+        [path addLineToPoint:CGPointMake(0, R)];
+        [path addArcWithCenter:CGPointMake(R, R) radius:R startAngle:M_PI endAngle:M_PI_2 * 3 clockwise:YES];
+        [path addLineToPoint:point0];
+        self.pss_shapeLayer.path = path.CGPath;
     }
-    self.pss_shapeLayer.path = path.CGPath;
+    
     [CATransaction commit];
 }
 

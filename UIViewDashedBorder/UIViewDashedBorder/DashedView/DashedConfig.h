@@ -23,6 +23,8 @@
 @property (nonatomic, assign) double duration;
 /// 颜色多久循环一周
 @property (nonatomic, assign) double circleDuration;
+/// 半径, 0时为直角
+@property (nonatomic, assign) CGFloat cornerRidus;
 
 + (instancetype)defaultConfig;
 
