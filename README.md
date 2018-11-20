@@ -48,7 +48,7 @@
 **文件目录以及.h**
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20181120165613997.png)
 
-```OC
+```Objective-C
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @interface DashedConfig : NSObject
@@ -74,7 +74,7 @@
 @end
 ```
 
-```OC
+```Objective-C
 #import <UIKit/UIKit.h>
 #import "DashedConfig.h"
 
