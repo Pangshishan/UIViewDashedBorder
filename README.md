@@ -6,10 +6,6 @@
 ![效果图](http://img.hb.aicdn.com/f2055c1edb04cdd4266a3fdfbf194f45eb01afcf437d5-iv2q79_fw658)
 
 
-[UIViewDashedBorder git地址](https://github.com/Pangshishan/UIViewDashedBorder) 用法非常简便，有用的话给个star呗
-[UIViewDashedBorder git地址](https://github.com/Pangshishan/UIViewDashedBorder) 用法非常简便，有用的话给个star呗
-[UIViewDashedBorder git地址](https://github.com/Pangshishan/UIViewDashedBorder) 用法非常简便，有用的话给个star呗
-<br>
 
 **代码用法如下：**  效果图中的四种效果，对应代码四种写法
 ```OC
